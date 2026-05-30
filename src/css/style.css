@@ -1,0 +1,24 @@
+@import url('https://fonts.cdnfonts.com/css/perandory');
+
+body {
+            font-family: 'Perandory', sans-serif;
+            background-color: #f5f5f5; /* Off-white yang kalem */
+        }
+        .glass-nav {
+            background: rgba(251, 251, 251, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .post-card {
+            transition: all 0.3s ease;
+            border-radius: 16px;
+        }
+        .post-card:hover {
+            background-color: #F3F4F6;
+            transform: translateY(-2px);
+        }
+
+#Portofolio{
+    font-family: 'Perandory';
+}
+

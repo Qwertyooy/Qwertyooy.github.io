@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Space | Minimalist Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+  <link href="/src/css/output.css" rel="stylesheet"/>
+  <style>
+ .image-cards.is-locked .img-awal {
+            opacity: 0 !important;
+            transform: scale(0.95) !important;
+        }
+
+        /* Ketika kartu dikunci, paksa gambar hover untuk muncul menimpa */
+        .image-cards.is-locked .img-hover {
+            opacity: 1 !important;
+            transform: scale(1) !important;
+        }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/src/js/main.js" defer></script>
+</head>
+<body class="antialiased bg-slate-200">
+
+  <nav class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-12 py-6 bg-transparent backdrop-blur-sm ">
+    <div class="max-h-10 max-w-16">
+      <img src="/aset/logo.avif" alt="">
+    </div>
+
+    <ul class="flex gap-10 text-xs font-medium tracking-[2px] uppercase items-center ">
+      <li><a href="#" class="hover:line-through transition">Home</a></li>
+      <li><a href="#" class="hover:line-through transition">About</a></li>
+      <li><a href="#" class="hover:line-through transition">Work</a></li>
+      <li><a href="#" class="hover:line-through transition">Contact</a></li>
+    </ul>
+
+    <div class="hidden md:block">
+      <a href="#" class="border border-black px-6 py-2 text-xs uppercase tracking-widest hover:bg-black hover:text-white hover:overline transition">
+        Hire Me
+      </a>
+    </div>
+  </nav>
+  <main class="">
+    <section class="h-[640px] items-center justify-center flex w-full overflow-hidden bg-[radial-gradient(circle,_#ffffff_0%,_#9ea2a8_100%)]">
+      
+      <div class="flex justify-between items-center gap-6 ">
+            <a onclick="playAudio('/src/aset/hindia.mp3', this)" class="music-card cursor-pointer w-[260px] bg-white rounded-2xl h-auto relative block">
+              <div class="group image-cards">
+                  <img src="/src/aset/2.avif" alt="Hindia Awal" class="img-awal img-awal absolute inset-0 w-[250px] h-full object-cover transition-all duration-500 ease-in-out 
+                    group-hover:opacity-0 rounded-2xl">
+                  <img src="/src/aset/2hover.avif" alt="Hindia Awal" class="img-hover w-[250px] h-auto object-contain transition-opacity duration-300 rounded-2xl opacity-0 group-hover:opacity-100 group-hover:scale-100">
+              </div>  
+            </a>    
+        <div class="relative flex w-auto h-auto mb-16 px-4 mt-auto items-center justify-center">
+          <div class="items-center justify-center flex flex-col mt-40">
+          <h2>WELCOME TO MY</h2>
+            <h1 id="Portofolio" class=" text-7xl font-bold leading-none tracking-[10px]">PORTOFOLIO</h1>
+            
+            <div class="flex flex-row justify-between text-left gap-8">
+              <p class="">FAST</p>
+              <p class="">FAST</p>
+              <p class="">FAST</p>
+              <p class="">FAST</p>
+            </div>
+            <p class="mb-10">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Hic</p>
+            <div class="max-w-80 text-center items-center justify-center flex flex-col">
+              <a href="#" class="font-bold p-2 rounded-3xl border-2 border-black hover:bg-black hover:text-white transition-all duration-300 ease-in-out">VIEW MY PORTOFOLIO</a>
+              <a onclick="stopAudio()" class=" cursor-pointer z-50">Stop audio</a>
+            </div>
+          </div>
+
+        </div>  
+            <a onclick="playAudio('/src/aset/bernadya.mp3',this)" class="music-card cursor-pointer w-[260px] bg-white rounded-2xl relative block" id="img">
+               <div class="group image-cards">
+                  <img src="/src/aset/3.avif" alt="Hindia Awal" class="img-awal img-awal absolute inset-0 w-[250px] h-full object-cover transition-all duration-500 ease-in-out 
+                    group-hover:opacity-0 rounded-2xl">
+                  <img src="/src/aset/3hover.avif" alt="Hindia Awal" class="img-hover w-[250px] h-auto object-contain transition-opacity duration-300 rounded-2xl opacity-0 group-hover:opacity-100 group-hover:scale-100">
+              </div>  
+            </a>
+        </div>
+    </section>
+
+    <section class="h-[640px] items-center justify-center flex w-full bg-[#2b2b2b] flex-col gap-10">
+
+      <div class="giff bg-white h-52 w-[1200px]">
+
+      </div>
+
+      <div class="identity border-2 border-white h-52 w-[1200px]">
+
+      </div>
+
+    </section>
+
+    <section class="h-[640px] bg-[#E7E1B1] items-center justify-start flex">
+      <div class="flex flex-col mx-10">
+<h1>hallos</h1>
+      <div class="" >
+        <h1>helos</h1>
+      </div>
+      </div>
+    </section>
+
+  </main>
+
+  </body>
+</html>

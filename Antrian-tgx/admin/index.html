@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Admin Panel TGX</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-6" id="halamanAdmin" style="display:none">
+
+
+    <div class="bg-white p-6 rounded-lg shadow h-fit space-y-6">
+    
+    <div class="border-b pb-4">
+        <h3 class="text-sm font-bold uppercase text-gray-500 mb-3">➕ Tambah Menu Baru</h3>
+        <div class="space-y-2">
+            <input 
+                type="text" 
+                id="inputNamaMenu" 
+                placeholder="Nama menu (ex: Martabak Telur)" 
+                class="w-full p-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <input 
+                type="number" 
+                id="inputHargaMenu" 
+                placeholder="Harga (ex: 20000)" 
+                class="w-full p-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <button 
+                onclick="simpanMenuBaru()" 
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium p-2 rounded-lg transition shadow"
+            >
+                Simpan Menu
+            </button>
+        </div>
+    </div>
+
+    <div>
+        <h2 class="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2">
+            🛒 <span>Pilih Menu Pesanan</span>
+        </h2>
+        <div id="daftarMenu" class="space-y-2"></div>
+    </div>
+</div>
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <div class="bg-white p-6 rounded-lg shadow h-fit">
+            <h2 class="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2">
+                🛒 <span>Pilih Menu Pesanan</span>
+            </h2>
+            <div id="daftarMenu" class="space-y-2"></div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow md:col-span-2">
+
+            <div class="bg-green-600 text-white p-4 rounded-lg mb-6 flex justify-between items-center shadow-sm">
+                <span class="text-lg font-medium">💰 Total Pendapatan Hari Ini:</span>
+                <span id="totalPendapatan" class="text-2xl font-bold">Rp 0</span>
+            </div>
+
+            <div class="mb-8 border-b pb-6">
+                <h2 class="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2">
+                    🧾 <span>Keranjang Pesanan</span>
+                </h2>
+                <div id="keranjang" class="space-y-2">
+                    <p class="text-gray-400 italic">Belum ada pesanan</p>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2">
+                    📋 <span>Daftar Antrean Saat Ini</span>
+                </h2>
+                <div class="overflow-x-auto rounded-lg border border-gray-200">
+                    <table class="w-full text-left border-collapse bg-white">
+                        <thead class="bg-gray-100 border-b border-gray-200 text-gray-700 font-semibold text-sm">
+                            <tr>
+                                <th class="p-3">Nomor</th>
+                                <th class="p-3">Pesanan</th>
+                                <th class="p-3">Total</th>
+                                <th class="p-3">Status</th>
+                                <th class="p-3 text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelAntreanAdmin" class="text-sm divide-y divide-gray-100">
+                            <tr>
+                                <td colspan="5" class="p-4 text-center text-gray-400 italic">Memuat data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="md:col-span-3 flex justify-end mt-4">
+            <button
+                id="btnLogout"
+                class="bg-red-500 hover:bg-red-600 text-white font-medium px-4 py-2 rounded-lg transition shadow-md flex items-center gap-2 text-sm"
+            >
+                🚪 Keluar (Logout)
+            </button>
+        </div>
+
+    </div>
+
+    <script type="module">
+        import { auth, db } from './main.js';
+        import {
+            collection,
+            addDoc,
+            updateDoc,
+            deleteDoc,
+            doc,
+            onSnapshot,
+            query,
+            orderBy,
+            serverTimestamp,
+            getDocs
+        } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        import {
+            onAuthStateChanged,
+            signOut
+        } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+        // ------------------------------------------
+        // AUTENTIKASI USER (CEK LOGIN)
+        // ------------------------------------------
+        const halamanAdmin = document.getElementById('halamanAdmin');
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                halamanAdmin.style.display = "block";
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        // ------------------------------------------
+        // PROSES LOGOUT
+        // ------------------------------------------
+        document.getElementById("btnLogout").addEventListener("click", async () => {
+            const konfirmasi = confirm("Apakah kamu yakin ingin keluar?");
+            if (konfirmasi) {
+                try {
+                    await signOut(auth);
+                    window.location.href = "login.html";
+                } catch (error) {
+                    alert("Gagal logout: " + error.message);
+                }
+            }
+        });
+
+        // ------------------------------------------
+        // MANAGEMENT KERANJANG BELANJA
+        // ------------------------------------------
+        let keranjang = [];
+
+        window.tambahKeKeranjang = function(nama, harga) {
+            const itemSudahAda = keranjang.find(item => item.nama === nama);
+
+            if (itemSudahAda) {
+                itemSudahAda.qty++;
+            } else {
+                keranjang.push({ nama, harga, qty: 1 });
+            }
+            renderKeranjang();
+        };
+
+        window.tambahQty = function(index) {
+            keranjang[index].qty++;
+            renderKeranjang();
+        };
+
+        window.kurangiQty = function(index) {
+            keranjang[index].qty--;
+            if (keranjang[index].qty <= 0) {
+                keranjang.splice(index, 1);
+            }
+            renderKeranjang();
+        };
+
+        function renderKeranjang() {
+            const divKeranjang = document.getElementById("keranjang");
+
+            if (keranjang.length === 0) {
+                divKeranjang.innerHTML = `<p class="text-gray-400 italic">Belum ada pesanan</p>`;
+                return;
+            }
+
+            divKeranjang.innerHTML = "";
+            let total = 0;
+
+            keranjang.forEach((item, index) => {
+                const subtotal = item.harga * item.qty;
+                total += subtotal;
+
+                divKeranjang.innerHTML += `
+                    <div class="border border-gray-200 rounded-lg p-3 flex justify-between items-center bg-gray-50">
+                        <div>
+                            <h3 class="font-bold text-gray-800">${item.nama}</h3>
+                            <p class="text-sm text-gray-500">Rp ${item.harga.toLocaleString()} x ${item.qty}</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="kurangiQty(${index})" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2.5 py-1 rounded font-bold transition">-</button>
+                            <span class="font-medium text-gray-800 w-6 text-center">${item.qty}</span>
+                            <button onclick="tambahQty(${index})" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2.5 py-1 rounded font-bold transition">+</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            divKeranjang.innerHTML += `
+                <div class="mt-4 pt-3 border-t">
+                    <div class="text-xl font-bold mb-3 text-gray-800 flex justify-between">
+                        <span>Total:</span>
+                        <span>Rp ${total.toLocaleString()}</span>
+                    </div>
+                    <button onclick="checkoutPesanan()" class="w-full bg-green-500 hover:bg-green-600 text-white font-medium p-3 rounded-lg shadow transition">
+                        🚀 Checkout Pesanan
+                    </button>
+                </div>
+            `;
+        }
+
+        // ------------------------------------------
+        // PROSES CHECKOUT PESANAN KE FIREBASE
+        // ------------------------------------------
+        window.checkoutPesanan = async function() {
+            if (keranjang.length === 0) {
+                alert("Keranjang kosong!");
+                return;
+            }
+
+            try {
+                const snapshot = await getDocs(collection(db, "pesanan"));
+                const nomorAntrean = snapshot.size + 1;
+                const total = keranjang.reduce((sum, item) => sum + (item.harga * item.qty), 0);
+
+                await addDoc(collection(db, "pesanan"), {
+                    nomor: nomorAntrean,
+                    items: keranjang,
+                    total: total,
+                    status: "diproses",
+                    waktu: serverTimestamp()
+                });
+
+                keranjang = [];
+                renderKeranjang();
+            } catch(error) {
+                console.error("Gagal melakukan checkout:", error);
+                alert("Gagal menyimpan pesanan!");
+            }
+        };
+
+        // ------------------------------------------
+        // MENAMPILKAN DAFTAR MENU (REALTIME)
+        // ------------------------------------------
+        onSnapshot(collection(db, "menu"), (snapshot) => {
+            const divMenu = document.getElementById('daftarMenu');
+
+            if (snapshot.empty) {
+                divMenu.innerHTML = `<p class="text-gray-400 italic">Belum ada pilihan menu tersedia.</p>`;
+                return;
+            }
+
+            divMenu.innerHTML = "";
+            snapshot.forEach((docSnap) => {
+                const item = docSnap.data();
+                divMenu.innerHTML += `
+                    <button
+                        onclick="tambahKeKeranjang('${item.nama}', ${item.harga})"
+                        class="w-full text-left bg-gray-50 hover:bg-blue-50 p-3 rounded-lg flex justify-between items-center border border-gray-200 transition hover:border-blue-300 group"
+                    >
+                        <span class="font-medium text-gray-700 group-hover:text-blue-700">${item.nama}</span>
+                        <span class="text-blue-600 font-bold">Rp ${item.harga.toLocaleString()}</span>
+                    </button>
+                `;
+            });
+        });
+
+        // ------------------------------------------
+        // MENAMPILKAN DAFTAR ANTREAN ADMIN (REALTIME)
+        // ------------------------------------------
+        onSnapshot(
+            query(collection(db, "pesanan"), orderBy("nomor")), 
+            (snapshot) => {
+                const tbody = document.getElementById("tabelAntreanAdmin");
+                tbody.innerHTML = "";
+                let totalPendapatan = 0;
+
+                if (snapshot.empty) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="5" class="p-4 text-center text-gray-400 italic">Belum ada antrean pesanan.</td>
+                        </tr>
+                    `;
+                    document.getElementById("totalPendapatan").innerText = "Rp 0";
+                    return;
+                }
+
+                snapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const id = docSnap.id;
+
+                    const nomor = data.nomor !== undefined ? data.nomor : "?";
+                    const total = data.total || 0;
+                    const status = data.status || "diproses";
+                    const items = Array.isArray(data.items) ? data.items : [];
+
+                    // Menghitung total harian hanya dari pesanan berstatus 'selesai'
+                    if (status === "selesai") {
+                        totalPendapatan += total;
+                    }
+
+                    let daftarItem = "";
+                    items.forEach((item) => {
+                        daftarItem += `<div class="text-xs text-gray-600">• ${item.nama} (${item.qty}x)</div>`;
+                    });
+
+                    tbody.innerHTML += `
+                        <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
+                            <td class="p-3 font-semibold text-gray-700">#${nomor}</td>
+                            <td class="p-3">${daftarItem || '<span class="text-red-400 italic text-xs">Kosong</span>'}</td>
+                            <td class="p-3 font-medium text-gray-800">Rp ${total.toLocaleString()}</td>
+                            <td class="p-3">
+                                ${
+                                    status === "diproses"
+                                    ? `<span class="bg-yellow-100 text-yellow-800 text-xs px-2.5 py-1 rounded-full font-bold">Diproses</span>`
+                                    : `<span class="bg-green-100 text-green-800 text-xs px-2.5 py-1 rounded-full font-bold">Selesai</span>`
+                                }
+                            </td>
+                            <td class="p-3 text-center">
+                                <div class="flex items-center justify-center gap-1.5 flex-wrap">
+                                    ${
+                                        status === "diproses"
+                                        ? `
+                                        <button
+                                            onclick="selesaikanPesanan('${id}')"
+                                            class="bg-green-500 hover:bg-green-600 text-white text-xs px-2.5 py-1.5 rounded font-medium shadow-sm transition"
+                                        >
+                                            ✓ Selesai
+                                        </button>
+                                        `
+                                        : `<span class="text-gray-400 text-xs font-bold px-2">Selesai</span>`
+                                    }
+                                    
+                                    <button
+                                        onclick="hapusPesanan('${id}', '${nomor}')"
+                                        class="bg-red-500 hover:bg-red-600 text-white text-xs px-2.5 py-1.5 rounded font-medium shadow-sm transition"
+                                    >
+                                        🗑️ Hapus
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                // Update teks total pendapatan harian di elemen hijau secara realtime
+                document.getElementById("totalPendapatan").innerText = `Rp ${totalPendapatan.toLocaleString()}`;
+            }, 
+            (error) => {
+                console.error("Gagal memuat antrean realtime:", error);
+                alert("Gagal memuat data antrean.");
+            }
+        );
+
+        // ------------------------------------------
+        // UBAH STATUS PESANAN JADI SELESAI
+        // ------------------------------------------
+        window.selesaikanPesanan = async function(id) {
+            try {
+                await updateDoc(doc(db, "pesanan", id), { status: "selesai" });
+            } catch(error) {
+                console.error("Gagal memperbarui status:", error);
+                alert("Gagal menyelesaikan pesanan!");
+            }
+        };
+
+        // ------------------------------------------
+        // HAPUS ORDERAN YANG SUDAH TERCHECKOUT
+        // ------------------------------------------
+        window.hapusPesanan = async function(id, nomorAntrean) {
+            const konfirmasi = confirm(`Apakah kamu yakin ingin menghapus permanen pesanan #${nomorAntrean}?`);
+            if (konfirmasi) {
+                try {
+                    await deleteDoc(doc(db, "pesanan", id));
+                } catch (error) {
+                    console.error("Gagal menghapus pesanan:", error);
+                    alert("Gagal menghapus data dari server: " + error.message);
+                }
+            }
+        };
+
+
+        // ------------------------------------------
+// TAMBAH MENU BARU KE FIRESTORE
+// ------------------------------------------
+window.simpanMenuBaru = async function() {
+    const namaMenu = document.getElementById("inputNamaMenu").value.trim();
+    const hargaMenu = parseInt(document.getElementById("inputHargaMenu").value);
+
+    // Validasi input tidak boleh kosong
+    if (!namaMenu || isNaN(hargaMenu)) {
+        alert("Harap isi nama menu dan harga dengan benar!");
+        return;
+    }
+
+    try {
+        // Menyimpan ke collection "menu"
+        await addDoc(collection(db, "menu"), {
+            nama: namaMenu,
+            harga: hargaMenu
+        });
+
+        alert(`Menu "${namaMenu}" berhasil ditambahkan!`);
+        
+        // Kosongkan kembali form input
+        document.getElementById("inputNamaMenu").value = "";
+        document.getElementById("inputHargaMenu").value = "";
+    } catch (error) {
+        console.error("Gagal menambah menu:", error);
+        alert("Gagal menyimpan menu baru: " + error.message);
+    }
+};
+    </script>
+</body>
+</html>

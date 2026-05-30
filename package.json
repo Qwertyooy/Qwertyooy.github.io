@@ -1,0 +1,26 @@
+{
+  "name": "qwertyooy.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Qwertyooy/Qwertyooy.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Qwertyooy/Qwertyooy.github.io/issues"
+  },
+  "homepage": "https://github.com/Qwertyooy/Qwertyooy.github.io#readme",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.3.0",
+    "firebase": "^12.13.0",
+    "tailwindcss": "^4.3.0"
+  }
+}
