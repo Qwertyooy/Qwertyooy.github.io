@@ -1,55 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Panel Admin</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login - Antrian TGX</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-   <div class="login-container">
-        <h2>Login Panel Admin</h2>
-        <form id="loginForm">
-            <input type="email" id="email" placeholder="Email Admin" required><br><br>
-            <input type="password" id="password" placeholder="Password" required><br><br>
-            <button type="submit">Login</button>
-        </form>
-        <p id="errorMessage" style="color: text; color: red;"></p>
+<body class="bg-gradient-to-br from-amber-50 to-orange-100 min-h-screen flex flex-col justify-between font-sans">
+
+    <nav class="fixed top-0 w-full z-50 flex items-center justify-between px-8 py-4 bg-white/80 backdrop-blur-md border-b border-amber-100 shadow-sm">
+        <div class="flex items-center gap-2">
+            <div class="h-8 w-8 bg-amber-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">A</div>
+            <h1 class="font-bold text-xl tracking-tight text-amber-900">Antrian-<span class="text-amber-500">TGX</span></h1>
+        </div>
+        <span class="text-xs font-semibold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full">Secure Access</span>
+    </nav>
+
+    <div class="flex-grow flex items-center justify-center px-4 pt-24 pb-12">
+        <div class="bg-white/90 backdrop-blur-lg p-8 rounded-2xl shadow-xl border border-amber-100/50 w-full max-w-md transform transition-all duration-300 hover:shadow-2xl">
+            
+            <div class="text-center mb-8">
+                <div class="h-16 w-16 bg-gradient-to-tr from-amber-500 to-orange-400 rounded-2xl flex items-center justify-center text-white font-black text-3xl mx-auto shadow-md mb-4 animate-bounce">
+                    TGX
+                </div>
+                <h2 class="text-2xl font-bold text-amber-900 tracking-tight">Selamat Datang Kembali</h2>
+                <p class="text-sm text-amber-700/70 mt-1">Silakan masuk untuk mengelola antrean pesanan</p>
+            </div>
+
+            <form id="loginForm" class="space-y-5">
+                <div>
+                    <label for="inputEmail" class="block text-xs font-bold uppercase tracking-wider text-amber-950 mb-2">Email Admin</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-500">
+                            📧
+                        </span>
+                        <input 
+                            type="email" 
+                            id="inputEmail" 
+                            required
+                            placeholder="admin@tgx.com" 
+                            class="w-full pl-10 pr-4 py-3 text-sm bg-amber-50/50 border border-amber-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-amber-900 placeholder-amber-700/40 transition-all"
+                        />
+                    </div>
+                </div>
+
+                <div>
+                    <label for="inputPassword" class="block text-xs font-bold uppercase tracking-wider text-amber-950 mb-2">Password</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-500">
+                            🔒
+                        </span>
+                        <input 
+                            type="password" 
+                            id="inputPassword" 
+                            required
+                            placeholder="••••••••" 
+                            class="w-full pl-10 pr-4 py-3 text-sm bg-amber-50/50 border border-amber-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-amber-900 placeholder-amber-700/40 transition-all"
+                        />
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <button 
+                        type="submit" 
+                        class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold p-3 rounded-xl transition shadow-lg shadow-amber-500/20 hover:shadow-amber-600/30 active:scale-[0.98] transform flex items-center justify-center gap-2"
+                    >
+                        <span>Masuk ke Dashboard</span> 🚀
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
+
+    <footer class="text-center py-4 text-xs text-amber-800/60 border-t border-amber-200/40 bg-white/40 backdrop-blur-sm">
+        &copy; 2026 Antrian-TGX. All rights reserved.
+    </footer>
 
     <script type="module">
         import { auth } from './main.js';
         import { signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-        // Cek Otomatis: Kalau ternyata admin SUDAH login, langsung lempar ke index.html (dashboard)
+        // Proteksi Halaman: Jika sudah login, langsung lempar ke admin.html
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                window.location.href = "index.html";
+                window.location.href = "admin.html"; // Sesuaikan dengan nama file admin Anda
             }
         });
 
-        
-        const form = document.getElementById('loginForm'); 
-        const pesanError = document.getElementById('errorMessage');
+        // Proses Login Form
+        document.getElementById("loginForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById("inputEmail").value.trim();
+            const password = document.getElementById("inputPassword").value;
+            const submitBtn = e.target.querySelector('button[type="submit"]');
 
-        form.addEventListener('submit', (e) => {
-            e.preventDefault(); 
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+            try {
+                // Beri efek loading teks
+                submitBtn.innerText = "Memverifikasi...";
+                submitBtn.disabled = true;
 
-        
-            signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    
-                    window.location.href = "index.html";
-                })
-                .catch((error) => {
-                    
-                    pesanError.innerText = "Email atau Password Salah!";
-                    console.error("Firebase Error:", error.message);
-                });
+                await signInWithEmailAndPassword(auth, email, password);
+                window.location.href = "./index.html"; // Sesuaikan dengan nama file admin Anda
+            } catch (error) {
+                console.error("Login gagal:", error);
+                alert("Gagal Masuk: Email atau password salah!");
+                
+                // Kembalikan tombol ke semula jika gagal
+                submitBtn.innerHTML = `<span>Masuk ke Dashboard</span> 🚀`;
+                submitBtn.disabled = false;
+            }
         });
-
-        
     </script>
 </body>
 </html>

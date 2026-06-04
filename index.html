@@ -3,106 +3,319 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Personal Space | Minimalist Blog</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
-  <link href="/src/css/output.css" rel="stylesheet"/>
-  <style>
- .image-cards.is-locked .img-awal {
-            opacity: 0 !important;
-            transform: scale(0.95) !important;
-        }
-
-        /* Ketika kartu dikunci, paksa gambar hover untuk muncul menimpa */
-        .image-cards.is-locked .img-hover {
-            opacity: 1 !important;
-            transform: scale(1) !important;
-        }
-  </style>
+  <title>Portfolio — Creative & Multimedia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="/src/js/main.js" defer></script>
+  <link rel="stylesheet" href="./src/css/input.css"/>
 </head>
-<body class="antialiased bg-slate-200">
+<body>
 
-  <nav class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-12 py-6 bg-transparent backdrop-blur-sm ">
-    <div class="max-h-10 max-w-16">
-      <img src="/aset/logo.avif" alt="">
+  
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  
+  <div class="audio-bar" id="audioBar">
+    <div class="waveform">
+      <span></span><span></span><span></span><span></span><span></span>
     </div>
+    <div>
+      <div class="track-name" id="trackName">—</div>
+      <div class="track-artist" id="trackArtist">—</div>
+    </div>
+    <button class="audio-stop" id="stopBtn" onclick="stopAudio()" title="Stop">
+      <svg viewBox="0 0 10 10"><rect width="10" height="10" rx="1"/></svg>
+    </button>
+  </div>
 
-    <ul class="flex gap-10 text-xs font-medium tracking-[2px] uppercase items-center ">
-      <li><a href="#" class="hover:line-through transition">Home</a></li>
-      <li><a href="#" class="hover:line-through transition">About</a></li>
-      <li><a href="#" class="hover:line-through transition">Work</a></li>
-      <li><a href="#" class="hover:line-through transition">Contact</a></li>
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-logo">Portfolio.</div>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
-
-    <div class="hidden md:block">
-      <a href="#" class="border border-black px-6 py-2 text-xs uppercase tracking-widest hover:bg-black hover:text-white hover:overline transition">
-        Hire Me
-      </a>
-    </div>
+    <a href="#contact" class="hire-btn">Hire Me</a>
   </nav>
-  <main class="">
-    <section class="h-[640px] items-center justify-center flex w-full overflow-hidden bg-[radial-gradient(circle,_#ffffff_0%,_#9ea2a8_100%)]">
-      
-      <div class="flex justify-between items-center gap-6 ">
-            <a onclick="playAudio('/src/aset/hindia.mp3', this)" class="music-card cursor-pointer w-[260px] bg-white rounded-2xl h-auto relative block">
-              <div class="group image-cards">
-                  <img src="/src/aset/2.avif" alt="Hindia Awal" class="img-awal img-awal absolute inset-0 w-[250px] h-full object-cover transition-all duration-500 ease-in-out 
-                    group-hover:opacity-0 rounded-2xl">
-                  <img src="/src/aset/2hover.avif" alt="Hindia Awal" class="img-hover w-[250px] h-auto object-contain transition-opacity duration-300 rounded-2xl opacity-0 group-hover:opacity-100 group-hover:scale-100">
-              </div>  
-            </a>    
-        <div class="relative flex w-auto h-auto mb-16 px-4 mt-auto items-center justify-center">
-          <div class="items-center justify-center flex flex-col mt-40">
-          <h2>WELCOME TO MY</h2>
-            <h1 id="Portofolio" class=" text-7xl font-bold leading-none tracking-[10px]">PORTOFOLIO</h1>
-            
-            <div class="flex flex-row justify-between text-left gap-8">
-              <p class="">FAST</p>
-              <p class="">FAST</p>
-              <p class="">FAST</p>
-              <p class="">FAST</p>
+
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="hero">
+      <div class="vinyl"></div>
+
+      <span class="side-label" style="left:28px; top:50%; transform:translateY(-50%) rotate(180deg);">Side A — Baskara Putra</span>
+      <span class="side-label" style="right:28px; top:50%; transform:translateY(-50%);">Side B — Bernadya Intan</span>
+
+      <div style="display:flex; align-items:center; gap:48px; position:relative; z-index:2;">
+
+        <!-- Card Baskara / Hindia -->
+        <div class="music-card-wrap">
+          <span class="card-label">Side A — Baskara</span>
+          <div class="music-card" id="card-baskara" onclick="playAudio('/src/aset/hindia.mp3', 'Baskara Putra', 'Rumah Ke Rumah', 'card-baskara')">
+            <img src="/src/aset/2.avif" alt="Baskara Putra — Hindia">
+            <div class="music-card-overlay">
+              <div class="artist">Baskara Putra</div>
+              <div class="song">▶ Putar musik</div>
             </div>
-            <p class="mb-10">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Hic</p>
-            <div class="max-w-80 text-center items-center justify-center flex flex-col">
-              <a href="#" class="font-bold p-2 rounded-3xl border-2 border-black hover:bg-black hover:text-white transition-all duration-300 ease-in-out">VIEW MY PORTOFOLIO</a>
-              <a onclick="stopAudio()" class=" cursor-pointer z-50">Stop audio</a>
+            <div class="play-indicator">
+              <svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero center text -->
+        <div class="hero-center">
+          <p class="hero-eyebrow">Creative &amp; Multimedia</p>
+          <h1 class="hero-title">
+            Porto<br><em>folio</em>
+          </h1>
+          <div class="hero-subtitle">
+            <span>Visual</span>
+            <span class="dot">·</span>
+            <span>Motion</span>
+            <span class="dot">·</span>
+            <span>Story</span>
+          </div>
+          <p class="hero-desc">
+            Seperti lirik yang menghantui — karya yang aku buat dirancang untuk terasa, bukan sekadar dilihat.
+          </p>
+          <a href="#work" class="hero-cta">Lihat Karya</a>
+        </div>
+
+        <!-- Card Bernadya -->
+        <div class="music-card-wrap">
+          <span class="card-label" style="text-align:right; display:block;">Side B — Bernadya</span>
+          <div class="music-card" id="card-bernadya" onclick="playAudio('/src/aset/bernadya.mp3', 'Bernadya', 'Kita Buat Menyenangkan', 'card-bernadya')">
+            <img src="/src/aset/3.avif" alt="Bernadya Intan">
+            <div class="music-card-overlay">
+              <div class="artist">Bernadya</div>
+              <div class="song">▶ Putar musik</div>
+            </div>
+            <div class="play-indicator">
+              <svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== ABOUT / SKILLS ===== -->
+    <section class="section-about" id="about">
+      <div class="about-container">
+        <div class="about-left fade-in">
+          <p class="section-number">01 — Tentang</p>
+          <h2 class="section-title">
+            Bercerita<br>lewat <em>visual</em><br>dan gerak.
+          </h2>
+          <p class="about-text">
+            Aku seorang kreator multimedia yang percaya bahwa setiap karya punya nadanya sendiri — seperti album yang didengarkan dari awal sampai akhir. Dari desain UI hingga video, aku membangun narasi visual yang konsisten dan berkesan.
+          </p>
+          <blockquote class="about-quote">
+            "Kita masing-masing punya lagu yang belum selesai ditulis."<br>
+            <span style="font-size:11px; letter-spacing:2px; text-transform:uppercase; font-family:'DM Sans',sans-serif; font-style:normal; color:var(--muted);">— Baskara Putra</span>
+          </blockquote>
+        </div>
+
+        <div class="about-right fade-in" style="transition-delay:0.15s;">
+          <p class="skills-label">Tracklist Kemampuan</p>
+          <ul class="tracklist">
+            <li class="tracklist-item">
+              <span class="track-num">01</span>
+              <div class="track-info">
+                <div class="track-title">Motion Design</div>
+                <div class="track-sub">After Effects · Premiere Pro</div>
+              </div>
+              <span class="track-level">Expert</span>
+              <div class="track-bar"><div class="track-bar-fill" style="width:90%"></div></div>
+            </li>
+            <li class="tracklist-item">
+              <span class="track-num">02</span>
+              <div class="track-info">
+                <div class="track-title">Visual Design</div>
+                <div class="track-sub">Figma · Illustrator · Photoshop</div>
+              </div>
+              <span class="track-level">Expert</span>
+              <div class="track-bar"><div class="track-bar-fill" style="width:85%"></div></div>
+            </li>
+            <li class="tracklist-item">
+              <span class="track-num">03</span>
+              <div class="track-info">
+                <div class="track-title">Frontend Dev</div>
+                <div class="track-sub">HTML · CSS · Tailwind · JS</div>
+              </div>
+              <span class="track-level">Advanced</span>
+              <div class="track-bar"><div class="track-bar-fill" style="width:75%"></div></div>
+            </li>
+            <li class="tracklist-item">
+              <span class="track-num">04</span>
+              <div class="track-info">
+                <div class="track-title">Photography</div>
+                <div class="track-sub">Portrait · Editorial · Product</div>
+              </div>
+              <span class="track-level">Advanced</span>
+              <div class="track-bar"><div class="track-bar-fill" style="width:80%"></div></div>
+            </li>
+            <li class="tracklist-item">
+              <span class="track-num">05</span>
+              <div class="track-info">
+                <div class="track-title">Brand Identity</div>
+                <div class="track-sub">Strategy · Visual System</div>
+              </div>
+              <span class="track-level">Intermediate</span>
+              <div class="track-bar"><div class="track-bar-fill" style="width:65%"></div></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== WORK ===== -->
+    <section class="section-work" id="work">
+      <div class="work-container">
+        <div class="work-header fade-in">
+          <div>
+            <p class="section-number">02 — Karya</p>
+            <h2 class="section-title" style="font-size:clamp(32px,4vw,52px);">
+              Album <em>Terbaik</em>
+            </h2>
+          </div>
+          <a href="#" style="font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); opacity:0.7; text-decoration:none;">Semua Karya →</a>
+        </div>
+
+        <div class="work-grid fade-in" style="transition-delay:0.1s;">
+          <!-- Item 1 (tall) -->
+          <div class="work-item" style="min-height:500px;">
+            <div class="work-item-bg bg-1"></div>
+            <!-- Placeholder pattern as "image" -->
+            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; opacity:0.06;">
+              <svg width="200" height="200" viewBox="0 0 200 200" fill="none">
+                <circle cx="100" cy="100" r="90" stroke="#C8A96E" stroke-width="1"/>
+                <circle cx="100" cy="100" r="60" stroke="#C8A96E" stroke-width="1"/>
+                <circle cx="100" cy="100" r="30" stroke="#C8A96E" stroke-width="1"/>
+                <circle cx="100" cy="100" r="8" fill="#C8A96E"/>
+              </svg>
+            </div>
+            <div class="work-arrow">
+              <svg viewBox="0 0 16 16" fill="none" stroke-width="1.5"><path d="M3 13L13 3M13 3H6M13 3v7"/></svg>
+            </div>
+            <div class="work-item-inner">
+              <div class="work-tag">Motion Design · 2024</div>
+              <div class="work-title">Seperti Hujan<br>yang Jatuh</div>
+              <div class="work-desc">Campaign video untuk brand lokal. Nuansa indie, sinematik, penuh rasa.</div>
             </div>
           </div>
 
-        </div>  
-            <a onclick="playAudio('/src/aset/bernadya.mp3',this)" class="music-card cursor-pointer w-[260px] bg-white rounded-2xl relative block" id="img">
-               <div class="group image-cards">
-                  <img src="/src/aset/3.avif" alt="Hindia Awal" class="img-awal img-awal absolute inset-0 w-[250px] h-full object-cover transition-all duration-500 ease-in-out 
-                    group-hover:opacity-0 rounded-2xl">
-                  <img src="/src/aset/3hover.avif" alt="Hindia Awal" class="img-hover w-[250px] h-auto object-contain transition-opacity duration-300 rounded-2xl opacity-0 group-hover:opacity-100 group-hover:scale-100">
-              </div>  
-            </a>
+          <!-- Item 2 -->
+          <div class="work-item">
+            <div class="work-item-bg bg-2"></div>
+            <div class="work-arrow">
+              <svg viewBox="0 0 16 16" fill="none" stroke-width="1.5"><path d="M3 13L13 3M13 3H6M13 3v7"/></svg>
+            </div>
+            <div class="work-item-inner">
+              <div class="work-tag">Branding · 2024</div>
+              <div class="work-title">Identitas Kopi<br>Malam</div>
+              <div class="work-desc">Visual identity untuk kedai kopi dengan konsep malam dan ketenangan.</div>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="work-item">
+            <div class="work-item-bg bg-3"></div>
+            <div class="work-arrow">
+              <svg viewBox="0 0 16 16" fill="none" stroke-width="1.5"><path d="M3 13L13 3M13 3H6M13 3v7"/></svg>
+            </div>
+            <div class="work-item-inner">
+              <div class="work-tag">UI Design · 2023</div>
+              <div class="work-title">Rekam Rasa</div>
+              <div class="work-desc">Aplikasi jurnal audio dengan antarmuka minimalis yang hangat.</div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
-    <section class="h-[640px] items-center justify-center flex w-full bg-[#2b2b2b] flex-col gap-10">
-
-      <div class="giff bg-white h-52 w-[1200px]">
-
-      </div>
-
-      <div class="identity border-2 border-white h-52 w-[1200px]">
-
-      </div>
-
-    </section>
-
-    <section class="h-[640px] bg-[#E7E1B1] items-center justify-start flex">
-      <div class="flex flex-col mx-10">
-<h1>hallos</h1>
-      <div class="" >
-        <h1>helos</h1>
-      </div>
+    <!-- ===== CONTACT ===== -->
+    <section class="section-contact" id="contact">
+      <div class="fade-in">
+        <p class="contact-eyebrow">03 — Kontak</p>
+        <h2 class="contact-title">
+          Mari kita<br><em>berkolaborasi.</em>
+        </h2>
+        <p class="contact-sub">Punya proyek? Ide gila? Atau cuma mau ngobrol soal musik?</p>
+        <a href="mailto:halo@portfolio.id" class="contact-email">halo@portfolio.id</a>
       </div>
     </section>
 
   </main>
 
-  </body>
+  <footer>
+    <p>© 2024 — Portfolio</p>
+    <p>Inspired by Baskara &amp; Bernadya</p>
+    <p style="color:var(--gold); opacity:0.5;">♪</p>
+  </footer>
+
+  <script>
+    // Cursor
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    });
+
+    // Audio
+    let currentAudio = null;
+    let currentCardId = null;
+
+    function playAudio(src, artist, track, cardId) {
+      // Stop current
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio = null;
+        if (currentCardId) {
+          document.getElementById(currentCardId)?.classList.remove('is-playing');
+        }
+      }
+
+      currentAudio = new Audio(src);
+      currentAudio.play().catch(() => {});
+      currentCardId = cardId;
+
+      document.getElementById(cardId)?.classList.add('is-playing');
+      document.getElementById('trackName').textContent = track;
+      document.getElementById('trackArtist').textContent = artist;
+      document.getElementById('audioBar').classList.add('visible');
+
+      currentAudio.onended = stopAudio;
+    }
+
+    function stopAudio() {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio = null;
+      }
+      if (currentCardId) {
+        document.getElementById(currentCardId)?.classList.remove('is-playing');
+        currentCardId = null;
+      }
+      document.getElementById('audioBar').classList.remove('visible');
+    }
+
+    // Scroll fade-in
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
 </html>

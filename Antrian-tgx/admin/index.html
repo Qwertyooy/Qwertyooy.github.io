@@ -7,102 +7,129 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 p-6" id="halamanAdmin" style="display:none">
+<body class="bg-amber-50 min-h-screen" id="halamanAdmin" style="display:none">
 
-
-    <div class="bg-white p-6 rounded-lg shadow h-fit space-y-6">
-    
-    <div class="border-b pb-4">
-        <h3 class="text-sm font-bold uppercase text-gray-500 mb-3">➕ Tambah Menu Baru</h3>
-        <div class="space-y-2">
-            <input 
-                type="text" 
-                id="inputNamaMenu" 
-                placeholder="Nama menu (ex: Martabak Telur)" 
-                class="w-full p-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <input 
-                type="number" 
-                id="inputHargaMenu" 
-                placeholder="Harga (ex: 20000)" 
-                class="w-full p-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <button 
-                onclick="simpanMenuBaru()" 
-                class="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium p-2 rounded-lg transition shadow"
-            >
-                Simpan Menu
-            </button>
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-8 py-3.5 bg-white border-b border-amber-100 shadow-sm">
+        <div class="flex items-center gap-2.5">
+            <div class="h-8 w-8 bg-amber-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">A</div>
+            <h1 class="font-bold text-xl tracking-tight text-amber-900">Antrian-<span class="text-amber-500">TGX</span></h1>
         </div>
-    </div>
-
-    <div>
-        <h2 class="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2">
-            🛒 <span>Pilih Menu Pesanan</span>
-        </h2>
-        <div id="daftarMenu" class="space-y-2"></div>
-    </div>
-</div>
-    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-
-        <div class="bg-white p-6 rounded-lg shadow h-fit">
-            <h2 class="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2">
-                🛒 <span>Pilih Menu Pesanan</span>
-            </h2>
-            <div id="daftarMenu" class="space-y-2"></div>
-        </div>
-
-        <div class="bg-white p-6 rounded-lg shadow md:col-span-2">
-
-            <div class="bg-green-600 text-white p-4 rounded-lg mb-6 flex justify-between items-center shadow-sm">
-                <span class="text-lg font-medium">💰 Total Pendapatan Hari Ini:</span>
-                <span id="totalPendapatan" class="text-2xl font-bold">Rp 0</span>
-            </div>
-
-            <div class="mb-8 border-b pb-6">
-                <h2 class="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2">
-                    🧾 <span>Keranjang Pesanan</span>
-                </h2>
-                <div id="keranjang" class="space-y-2">
-                    <p class="text-gray-400 italic">Belum ada pesanan</p>
-                </div>
-            </div>
-
-            <div>
-                <h2 class="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2">
-                    📋 <span>Daftar Antrean Saat Ini</span>
-                </h2>
-                <div class="overflow-x-auto rounded-lg border border-gray-200">
-                    <table class="w-full text-left border-collapse bg-white">
-                        <thead class="bg-gray-100 border-b border-gray-200 text-gray-700 font-semibold text-sm">
-                            <tr>
-                                <th class="p-3">Nomor</th>
-                                <th class="p-3">Pesanan</th>
-                                <th class="p-3">Total</th>
-                                <th class="p-3">Status</th>
-                                <th class="p-3 text-center">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabelAntreanAdmin" class="text-sm divide-y divide-gray-100">
-                            <tr>
-                                <td colspan="5" class="p-4 text-center text-gray-400 italic">Memuat data...</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="md:col-span-3 flex justify-end mt-4">
+        <div class="flex items-center gap-3">
+            <span class="text-xs font-semibold text-amber-700 bg-amber-100 px-3 py-1 rounded-full">Secure Access</span>
             <button
                 id="btnLogout"
-                class="bg-red-500 hover:bg-red-600 text-white font-medium px-4 py-2 rounded-lg transition shadow-md flex items-center gap-2 text-sm"
+                class="bg-red-500 hover:bg-red-600 text-white font-medium px-3.5 py-1.5 rounded-lg transition text-xs flex items-center gap-1.5 shadow-sm"
             >
-                🚪 Keluar (Logout)
+                🚪 Keluar
             </button>
         </div>
+    </nav>
 
+    <!-- MAIN CONTENT -->
+    <div class="max-w-6xl mx-auto pt-24 pb-10 px-6">
+
+        <!-- STAT CARDS -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="bg-white rounded-xl border border-amber-100 shadow-sm p-5 flex items-center gap-4">
+                <div class="h-11 w-11 bg-green-100 rounded-xl flex items-center justify-center text-xl">💰</div>
+                <div>
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-0.5">Total Pendapatan Hari Ini</p>
+                    <p id="totalPendapatan" class="text-2xl font-bold text-green-600">Rp 0</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl border border-amber-100 shadow-sm p-5 flex items-center gap-4">
+                <div class="h-11 w-11 bg-amber-100 rounded-xl flex items-center justify-center text-xl">📋</div>
+                <div>
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-0.5">Antrean Aktif</p>
+                    <p class="text-2xl font-bold text-amber-600">— Realtime</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- GRID UTAMA -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+            <!-- KOLOM KIRI: Tambah Menu + Daftar Menu -->
+            <div class="flex flex-col gap-5">
+
+                <!-- Form Tambah Menu -->
+                <div class="bg-white rounded-xl border border-amber-100 shadow-sm p-5">
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-amber-600 mb-4 flex items-center gap-1.5">
+                        ➕ Tambah Menu Baru
+                    </h3>
+                    <div class="space-y-2.5">
+                        <input
+                            type="text"
+                            id="inputNamaMenu"
+                            placeholder="Nama menu (ex: Martabak Telur)"
+                            class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent bg-amber-50 placeholder-gray-400 transition"
+                        />
+                        <input
+                            type="number"
+                            id="inputHargaMenu"
+                            placeholder="Harga (ex: 20000)"
+                            class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent bg-amber-50 placeholder-gray-400 transition"
+                        />
+                        <button
+                            onclick="simpanMenuBaru()"
+                            class="w-full bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold py-2.5 rounded-lg transition shadow-sm flex items-center justify-center gap-2"
+                        >
+                            💾 Simpan Menu
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pilih Menu -->
+                <div class="bg-white rounded-xl border border-amber-100 shadow-sm p-5">
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-amber-600 mb-4">
+                        🛒 Pilih Menu Pesanan
+                    </h3>
+                    <div id="daftarMenu" class="space-y-2"></div>
+                </div>
+
+            </div>
+
+            <!-- KOLOM KANAN: Keranjang + Tabel Antrean -->
+            <div class="md:col-span-2 flex flex-col gap-5">
+
+                <!-- Keranjang -->
+                <div class="bg-white rounded-xl border border-amber-100 shadow-sm p-5">
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-amber-600 mb-4 flex items-center gap-1.5">
+                        🧾 Keranjang Pesanan
+                    </h3>
+                    <div id="keranjang" class="space-y-2">
+                        <p class="text-sm text-gray-400 italic">Belum ada pesanan</p>
+                    </div>
+                </div>
+
+                <!-- Tabel Antrean -->
+                <div class="bg-white rounded-xl border border-amber-100 shadow-sm p-5">
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-amber-600 mb-4 flex items-center gap-1.5">
+                        📋 Daftar Antrean Saat Ini
+                    </h3>
+                    <div class="overflow-x-auto rounded-lg border border-gray-100">
+                        <table class="w-full text-left border-collapse bg-white">
+                            <thead class="bg-amber-50 border-b border-amber-100 text-gray-500 text-xs font-semibold uppercase tracking-wide">
+                                <tr>
+                                    <th class="px-4 py-3">Nomor</th>
+                                    <th class="px-4 py-3">Pesanan</th>
+                                    <th class="px-4 py-3">Total</th>
+                                    <th class="px-4 py-3">Status</th>
+                                    <th class="px-4 py-3 text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelAntreanAdmin" class="text-sm divide-y divide-gray-50">
+                                <tr>
+                                    <td colspan="5" class="px-4 py-6 text-center text-gray-400 italic text-sm">Memuat data...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 
     <script type="module">
@@ -186,7 +213,7 @@
             const divKeranjang = document.getElementById("keranjang");
 
             if (keranjang.length === 0) {
-                divKeranjang.innerHTML = `<p class="text-gray-400 italic">Belum ada pesanan</p>`;
+                divKeranjang.innerHTML = `<p class="text-sm text-gray-400 italic">Belum ada pesanan</p>`;
                 return;
             }
 
@@ -198,27 +225,27 @@
                 total += subtotal;
 
                 divKeranjang.innerHTML += `
-                    <div class="border border-gray-200 rounded-lg p-3 flex justify-between items-center bg-gray-50">
+                    <div class="flex justify-between items-center bg-amber-50 border border-amber-100 rounded-lg px-3 py-2.5">
                         <div>
-                            <h3 class="font-bold text-gray-800">${item.nama}</h3>
-                            <p class="text-sm text-gray-500">Rp ${item.harga.toLocaleString()} x ${item.qty}</p>
+                            <p class="text-sm font-semibold text-gray-800">${item.nama}</p>
+                            <p class="text-xs text-gray-500">Rp ${item.harga.toLocaleString()} &times; ${item.qty} = <span class="font-medium text-amber-700">Rp ${subtotal.toLocaleString()}</span></p>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <button onclick="kurangiQty(${index})" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2.5 py-1 rounded font-bold transition">-</button>
-                            <span class="font-medium text-gray-800 w-6 text-center">${item.qty}</span>
-                            <button onclick="tambahQty(${index})" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-2.5 py-1 rounded font-bold transition">+</button>
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="kurangiQty(${index})" class="h-7 w-7 flex items-center justify-center bg-white border border-gray-200 hover:bg-red-50 hover:border-red-300 text-gray-600 hover:text-red-600 rounded-md font-bold text-base transition">−</button>
+                            <span class="text-sm font-semibold text-gray-800 w-5 text-center">${item.qty}</span>
+                            <button onclick="tambahQty(${index})" class="h-7 w-7 flex items-center justify-center bg-white border border-gray-200 hover:bg-green-50 hover:border-green-300 text-gray-600 hover:text-green-600 rounded-md font-bold text-base transition">+</button>
                         </div>
                     </div>
                 `;
             });
 
             divKeranjang.innerHTML += `
-                <div class="mt-4 pt-3 border-t">
-                    <div class="text-xl font-bold mb-3 text-gray-800 flex justify-between">
-                        <span>Total:</span>
-                        <span>Rp ${total.toLocaleString()}</span>
+                <div class="mt-3 pt-3 border-t border-gray-100">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-sm font-semibold text-gray-600">Total Pesanan</span>
+                        <span class="text-lg font-bold text-green-600">Rp ${total.toLocaleString()}</span>
                     </div>
-                    <button onclick="checkoutPesanan()" class="w-full bg-green-500 hover:bg-green-600 text-white font-medium p-3 rounded-lg shadow transition">
+                    <button onclick="checkoutPesanan()" class="w-full bg-green-500 hover:bg-green-600 text-white text-sm font-semibold py-2.5 rounded-lg shadow-sm transition flex items-center justify-center gap-2">
                         🚀 Checkout Pesanan
                     </button>
                 </div>
@@ -262,7 +289,7 @@
             const divMenu = document.getElementById('daftarMenu');
 
             if (snapshot.empty) {
-                divMenu.innerHTML = `<p class="text-gray-400 italic">Belum ada pilihan menu tersedia.</p>`;
+                divMenu.innerHTML = `<p class="text-sm text-gray-400 italic">Belum ada pilihan menu tersedia.</p>`;
                 return;
             }
 
@@ -272,10 +299,10 @@
                 divMenu.innerHTML += `
                     <button
                         onclick="tambahKeKeranjang('${item.nama}', ${item.harga})"
-                        class="w-full text-left bg-gray-50 hover:bg-blue-50 p-3 rounded-lg flex justify-between items-center border border-gray-200 transition hover:border-blue-300 group"
+                        class="w-full text-left bg-gray-50 hover:bg-amber-50 px-3 py-2.5 rounded-lg flex justify-between items-center border border-gray-200 hover:border-amber-300 transition group"
                     >
-                        <span class="font-medium text-gray-700 group-hover:text-blue-700">${item.nama}</span>
-                        <span class="text-blue-600 font-bold">Rp ${item.harga.toLocaleString()}</span>
+                        <span class="text-sm font-medium text-gray-700 group-hover:text-amber-800">${item.nama}</span>
+                        <span class="text-sm font-bold text-amber-600">Rp ${item.harga.toLocaleString()}</span>
                     </button>
                 `;
             });
@@ -285,7 +312,7 @@
         // MENAMPILKAN DAFTAR ANTREAN ADMIN (REALTIME)
         // ------------------------------------------
         onSnapshot(
-            query(collection(db, "pesanan"), orderBy("nomor")), 
+            query(collection(db, "pesanan"), orderBy("nomor")),
             (snapshot) => {
                 const tbody = document.getElementById("tabelAntreanAdmin");
                 tbody.innerHTML = "";
@@ -294,7 +321,7 @@
                 if (snapshot.empty) {
                     tbody.innerHTML = `
                         <tr>
-                            <td colspan="5" class="p-4 text-center text-gray-400 italic">Belum ada antrean pesanan.</td>
+                            <td colspan="5" class="px-4 py-6 text-center text-gray-400 italic text-sm">Belum ada antrean pesanan.</td>
                         </tr>
                     `;
                     document.getElementById("totalPendapatan").innerText = "Rp 0";
@@ -310,58 +337,43 @@
                     const status = data.status || "diproses";
                     const items = Array.isArray(data.items) ? data.items : [];
 
-                    // Menghitung total harian hanya dari pesanan berstatus 'selesai'
                     if (status === "selesai") {
                         totalPendapatan += total;
                     }
 
                     let daftarItem = "";
                     items.forEach((item) => {
-                        daftarItem += `<div class="text-xs text-gray-600">• ${item.nama} (${item.qty}x)</div>`;
+                        daftarItem += `<div class="text-xs text-gray-500">• ${item.nama} (${item.qty}x)</div>`;
                     });
 
                     tbody.innerHTML += `
-                        <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
-                            <td class="p-3 font-semibold text-gray-700">#${nomor}</td>
-                            <td class="p-3">${daftarItem || '<span class="text-red-400 italic text-xs">Kosong</span>'}</td>
-                            <td class="p-3 font-medium text-gray-800">Rp ${total.toLocaleString()}</td>
-                            <td class="p-3">
+                        <tr class="hover:bg-amber-50 transition">
+                            <td class="px-4 py-3 font-bold text-gray-700">#${nomor}</td>
+                            <td class="px-4 py-3">${daftarItem || '<span class="text-red-400 italic text-xs">Kosong</span>'}</td>
+                            <td class="px-4 py-3 font-semibold text-gray-800 whitespace-nowrap">Rp ${total.toLocaleString()}</td>
+                            <td class="px-4 py-3">
                                 ${
                                     status === "diproses"
-                                    ? `<span class="bg-yellow-100 text-yellow-800 text-xs px-2.5 py-1 rounded-full font-bold">Diproses</span>`
-                                    : `<span class="bg-green-100 text-green-800 text-xs px-2.5 py-1 rounded-full font-bold">Selesai</span>`
+                                    ? `<span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-semibold">⏳ Diproses</span>`
+                                    : `<span class="bg-green-100 text-green-800 text-xs px-2.5 py-1 rounded-full font-semibold">✅ Selesai</span>`
                                 }
                             </td>
-                            <td class="p-3 text-center">
+                            <td class="px-4 py-3 text-center">
                                 <div class="flex items-center justify-center gap-1.5 flex-wrap">
                                     ${
                                         status === "diproses"
-                                        ? `
-                                        <button
-                                            onclick="selesaikanPesanan('${id}')"
-                                            class="bg-green-500 hover:bg-green-600 text-white text-xs px-2.5 py-1.5 rounded font-medium shadow-sm transition"
-                                        >
-                                            ✓ Selesai
-                                        </button>
-                                        `
-                                        : `<span class="text-gray-400 text-xs font-bold px-2">Selesai</span>`
+                                        ? `<button onclick="selesaikanPesanan('${id}')" class="bg-green-500 hover:bg-green-600 text-white text-xs px-3 py-1.5 rounded-lg font-medium transition shadow-sm">✓ Selesai</button>`
+                                        : `<span class="text-gray-300 text-xs px-2">—</span>`
                                     }
-                                    
-                                    <button
-                                        onclick="hapusPesanan('${id}', '${nomor}')"
-                                        class="bg-red-500 hover:bg-red-600 text-white text-xs px-2.5 py-1.5 rounded font-medium shadow-sm transition"
-                                    >
-                                        🗑️ Hapus
-                                    </button>
+                                    <button onclick="hapusPesanan('${id}', '${nomor}')" class="bg-red-500 hover:bg-red-600 text-white text-xs px-3 py-1.5 rounded-lg font-medium transition shadow-sm">🗑️ Hapus</button>
                                 </div>
                             </td>
                         </tr>
                     `;
                 });
 
-                // Update teks total pendapatan harian di elemen hijau secara realtime
                 document.getElementById("totalPendapatan").innerText = `Rp ${totalPendapatan.toLocaleString()}`;
-            }, 
+            },
             (error) => {
                 console.error("Gagal memuat antrean realtime:", error);
                 alert("Gagal memuat data antrean.");
@@ -395,37 +407,33 @@
             }
         };
 
-
         // ------------------------------------------
-// TAMBAH MENU BARU KE FIRESTORE
-// ------------------------------------------
-window.simpanMenuBaru = async function() {
-    const namaMenu = document.getElementById("inputNamaMenu").value.trim();
-    const hargaMenu = parseInt(document.getElementById("inputHargaMenu").value);
+        // TAMBAH MENU BARU KE FIRESTORE
+        // ------------------------------------------
+        window.simpanMenuBaru = async function() {
+            const namaMenu = document.getElementById("inputNamaMenu").value.trim();
+            const hargaMenu = parseInt(document.getElementById("inputHargaMenu").value);
 
-    // Validasi input tidak boleh kosong
-    if (!namaMenu || isNaN(hargaMenu)) {
-        alert("Harap isi nama menu dan harga dengan benar!");
-        return;
-    }
+            if (!namaMenu || isNaN(hargaMenu)) {
+                alert("Harap isi nama menu dan harga dengan benar!");
+                return;
+            }
 
-    try {
-        // Menyimpan ke collection "menu"
-        await addDoc(collection(db, "menu"), {
-            nama: namaMenu,
-            harga: hargaMenu
-        });
+            try {
+                await addDoc(collection(db, "menu"), {
+                    nama: namaMenu,
+                    harga: hargaMenu
+                });
 
-        alert(`Menu "${namaMenu}" berhasil ditambahkan!`);
-        
-        // Kosongkan kembali form input
-        document.getElementById("inputNamaMenu").value = "";
-        document.getElementById("inputHargaMenu").value = "";
-    } catch (error) {
-        console.error("Gagal menambah menu:", error);
-        alert("Gagal menyimpan menu baru: " + error.message);
-    }
-};
+                alert(`Menu "${namaMenu}" berhasil ditambahkan!`);
+
+                document.getElementById("inputNamaMenu").value = "";
+                document.getElementById("inputHargaMenu").value = "";
+            } catch (error) {
+                console.error("Gagal menambah menu:", error);
+                alert("Gagal menyimpan menu baru: " + error.message);
+            }
+        };
     </script>
 </body>
 </html>
