@@ -21,6 +21,7 @@
   "dependencies": {
     "@tailwindcss/cli": "^4.3.0",
     "firebase": "^12.13.0",
-    "tailwindcss": "^4.3.0"
+    "tailwindcss": "^4.3.0",
+    "vercel": "^54.12.0"
   }
 }
