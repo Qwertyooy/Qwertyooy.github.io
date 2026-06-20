@@ -159,59 +159,93 @@
 
     <!-- ===== WORK ===== -->
     <section class="section-work" id="work">
-      <div class="work-container">
-        <div class="work-header fade-in">
-          <div>
-            <p class="section-number">02 — Karya</p>
-            <h2 class="section-title" style="font-size:clamp(32px,4vw,52px);">
-              Album <em>Terbaik</em>
-            </h2>
+  <div class="work-container mx-auto px-4 max-w-7xl">
+    
+    <!-- HEADER WORK -->
+    <div class="work-header fade-in flex justify-between items-end mb-12">
+      <div>
+        <p class="section-number text-xs tracking-widest uppercase opacity-60 mb-2">02 — Karya</p>
+        <h2 class="section-title font-serif" style="font-size:clamp(32px, 4vw, 52px); font-style: italic;">
+          Album <span class="not-italic font-normal">Terbaik</span>
+        </h2>
+      </div>
+      <a href="#" style="font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--gold, #C8A96E); opacity:0.7; text-decoration:none;" class="hover:opacity-100 transition-opacity">Semua Karya →</a>
+    </div>
+
+    
+    <div class="work-grid fade-in grid grid-cols-1 md:grid-cols-[1.618fr_1fr] gap-6" style="transition-delay:0.1s;">
+      
+    
+      <a href="./Antrian-tgx/index.html" class="block relative z-30 md:row-span-2 group">
+        <div class="work-item relative overflow-hidden rounded-2xl h-full min-h-[550px] flex flex-col justify-end p-8 bg-slate-900">
+          <div class="work-item-bg bg-1 absolute inset-0 transition-transform duration-500 group-hover:scale-105 opacity-80">
+            <img class="h-full w-full object-cover" src="./src/aset/kasir.png" alt="Antrian TGX">
           </div>
-          <a href="#" style="font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); opacity:0.7; text-decoration:none;">Semua Karya →</a>
+          
+    
+          <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+            <svg width="200" height="200" viewBox="0 0 200 200" fill="none">
+              <circle cx="100" cy="100" r="90" stroke="#C8A96E" stroke-width="1"/>
+              <circle cx="100" cy="100" r="60" stroke="#C8A96E" stroke-width="1"/>
+              <circle cx="100" cy="100" r="30" stroke="#C8A96E" stroke-width="1"/>
+              <circle cx="100" cy="100" r="8" fill="#C8A96E"/>
+            </svg>
+          </div>
+          
+          <div class="work-arrow absolute top-6 right-6 w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <svg viewBox="0 0 16 16" fill="none" stroke="#C8A96E" stroke-width="1.5"><path d="M3 13L13 3M13 3H6M13 3v7"/></svg>
+          </div>
+          
+          <div class="work-item-inner relative z-10 text-white">
+            <div class="work-tag text-xs tracking-wider text-[#C8A96E] mb-2">Frontend-Backend · 2026</div>
+            <div class="work-title text-2xl font-bold mb-2">ANTRIAN-TGX</div>
+            <div class="work-desc text-sm text-slate-300 max-w-md">Sebuah website yang membantu UMKM mendigitalisasi layanan dan data bisnis.</div>
+          </div>
         </div>
+      </a>
 
-        <div class="work-grid fade-in" style="transition-delay:0.1s;">
-          <!-- Item 1 (tall) -->
-          <a href="./Antrian-tgx/index.html" class="block relative z-50">
-            <div class="work-item" style="min-height:500px;">
-              <div class="work-item-bg bg-1"></div>
-              <img class="h-full w-full object-cover" src="./src/aset/kasir.png" alt="">
-              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; opacity:0.06;">
-                <svg width="200" height="200" viewBox="0 0 200 200" fill="none">
-                  <circle cx="100" cy="100" r="90" stroke="#C8A96E" stroke-width="1"/>
-                  <circle cx="100" cy="100" r="60" stroke="#C8A96E" stroke-width="1"/>
-                  <circle cx="100" cy="100" r="30" stroke="#C8A96E" stroke-width="1"/>
-                  <circle cx="100" cy="100" r="8" fill="#C8A96E"/>
-                </svg>
-              </div>
-              <div class="work-arrow">
-                <svg viewBox="0 0 16 16" fill="none" stroke-width="1.5"><path d="M3 13L13 3M13 3H6M13 3v7"/></svg>
-              </div>
-              <div class="work-item-inner">
-                <div class="work-tag">Frontend-Backend · 2026</div>
-                <div class="work-title">ANTRIAN-TGX</div>
-                <div class="work-desc">Sebuah website yang membantu UMKM mendigitalisasi layanan dan data.</div>
-              </div>
-            </div>
-          </a>
+      
+      <a href="https://youtu.be/_lq3Wl4GdSk?si=Mym4vGb9QwyTFG2X" class="block relative z-30 group">
+        <div class="work-item relative overflow-hidden rounded-2xl h-[263px] flex flex-col justify-end p-6 bg-slate-900">
+          <div class="work-item-bg bg-2 absolute inset-0 transition-transform duration-500 group-hover:scale-105 opacity-70">
+            <img class="h-full w-full object-cover" src="./src/aset/youtbe2.avif" alt="Dokumenter">
+          </div>
+          
+          <div class="work-arrow absolute top-6 right-6 w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <svg viewBox="0 0 16 16" fill="none" stroke="#C8A96E" stroke-width="1.5"><path d="M3 13L13 3M13 3H6M13 3v7"/></svg>
+          </div>
+          
+          <div class="work-item-inner relative z-10 text-white">
+            <div class="work-tag text-xs tracking-wider text-[#C8A96E] mb-1">Dokumenter · 2026</div>
+            <div class="work-title text-xl font-bold mb-1">DOKUMENTER DAN WAWANCARA</div>
+            <div class="work-desc text-xs text-slate-300">Mempublikasi manfaat dan dampak real yang terjadi di lapangan.</div>
+          </div>
+        </div>
+      </a>
 
-          <!-- Item 2 -->
-          <a href="https://youtu.be/_lq3Wl4GdSk?si=Mym4vGb9QwyTFG2X" class="block relative z-50">
-            <div class="work-item">
-              <div class="work-item-bg bg-2"></div>
-              <img class="h-full w-full" src="./src/aset/youtbe2.avif" alt="">
-              <div class="work-arrow">
-                <svg viewBox="0 0 16 16" fill="none" stroke-width="1.5"><path d="M3 13L13 3M13 3H6M13 3v7"/></svg>
-              </div>
-              <div class="work-item-inner">
-                <div class="work-tag">Dokumenter · 2026</div>
-                <div class="work-title">DOKUMENTER DAN <br> WAWANCARA</div>
-                <div class="work-desc">Mempublikasi manfaat dan dampak real yang terjadi.</div>
-              </div>
-            </div>
-          </a>
-          <!-- Item 3 -->
-         
+      
+      <a href="./wedding/index.html" class="block relative z-30 group">
+        <div class="work-item relative overflow-hidden rounded-2xl h-[263px] flex flex-col justify-end p-6 bg-slate-900">
+          <div class="work-item-bg bg-3 absolute inset-0 transition-transform duration-500 group-hover:scale-105 opacity-70">
+      
+            <img class="h-full w-full object-cover" src="./src/aset/wedding.avif" alt="Wedding Website">
+          </div>
+          
+          <div class="work-arrow absolute top-6 right-6 w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <svg viewBox="0 0 16 16" fill="none" stroke="#C8A96E" stroke-width="1.5"><path d="M3 13L13 3M13 3H6M13 3v7"/></svg>
+          </div>
+          
+          <div class="work-item-inner relative z-10 text-white">
+            <div class="work-tag text-xs tracking-wider text-[#C8A96E] mb-1">Web Development · 2026</div>
+            <div class="work-title text-xl font-bold mb-1">KANVAS DIGITAL / WEDDING (development)</div>
+            <div class="work-desc text-xs text-slate-300">Spesialis pembuatan website undangan pernikahan interaktif dengan fitur musik.</div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>     
         </div>
       </div>
     </section>
