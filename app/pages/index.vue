@@ -38,24 +38,7 @@ const works = [
 
 <template>
   <navbar/>
-
-  <UMain class="min-h-screen flex justify-center items-center">
-    <section class="w-full max-w-4xl px-4 items-center  flex justify-center ">
-      <div class="flex flex-col md:flex-row items-center justify-center gap-8 text-center md:text-left">
-          <div class="w-[220px] relative">
-        <div class="w-[220px] aspect-square relative overflow-hidden rounded-2xl border-brand-muted">
-            <img src="/img/2.avif" alt="">
-        </div>
-      </div>
-      <h1 class="justify-center px-32 relative text-7xl font-bold">Porto<br><em class="text-brand-gold">folio</em></h1>
-      <div class="w-[220px] relative">
-        <div class="w-[220px] aspect-square relative overflow-hidden rounded-2xl border-brand-muted">
-            <img src="/img/2.avif" alt="Project Image" />
-        </div>
-      </div>
-      </div>
-    </section>
-  </UMain>
+  <hero/>
     
 
     <section class="pt-32 pb-32 bg-brand-mid flex justify-center items-center">
@@ -77,14 +60,26 @@ const works = [
         <div class="">
           <p>TRACKLIST KEMAMPUAN</p>
           <ul>
-            <li v-for = "skill in skills" :key = "skill.num">
-              <span>{{skill.num}}</span>
+            <li class="group flex items-center gap-5 py-[18px]
+               border-b border-white/5
+               relative transition-all duration-300
+               hover:pl-2 cursor-default" v-for = "skill in skills" :key = "skill.num">
+              <span class="w-6 shrink-0 font-playfair text-[11px]
+                  text-gray-400 transition-colors duration-300
+                  group-hover:text-amber-600">{{skill.num}}</span>
               <div class="">
                 <p>{{skill.title}}</p>
                 <p>{{skill.sub}}</p>
               </div>
-              <span>{{skill.level}}</span>
-              <div class="" :style="{widht : skill.progress}"></div>
+              <span class="text-[10px] tracking-[2px]
+                  uppercase text-amber-600 opacity-60">{{skill.level}}</span>
+              <div class="w-20 h-0.5 bg-white/10 rounded overflow-hidden">
+                <div class="h-full 
+                    rounded
+                    bg-gradient-to-r
+                    from-amber-600
+                    to-amber-600/40" :style="{width : `${skill.progress}%`}"></div>
+              </div>
             </li>
           </ul>
         </div>

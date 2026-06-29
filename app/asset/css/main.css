@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
 @import "tailwindcss";
 @import "@nuxt/ui";
 
@@ -16,7 +18,7 @@
   --ui-primary: var(--color-brand-gold);
   
   /* Untuk Light Mode: Background terang (cream), teks gelap (dark) */
-  --ui-bg: var(--color-brand-warm);
+  --ui-bg: var(--color-brand-dark);
   --ui-text: var(--color-brand-cream);
   
   /* Variabel bantuan untuk komponen custom */
@@ -27,9 +29,13 @@
 /* Base style untuk halaman portofolio */
 @layer base {
   body {
-      background: var(--ui-bg);
+      background: var(--ui-bg); 
       color: var(--ui-text);
-      font-family: 'DM Sans', sans-serif;
+      font-family: "DM Sans", sans-serif;
       overflow-x: hidden;
+  }
+  
+  #text-utama{
+    font-family: "Playfair Display", serif;
   }
 }
