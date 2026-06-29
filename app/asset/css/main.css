@@ -1,0 +1,35 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+
+@theme {
+  --color-brand-cream: #E8E0C8;
+  --color-brand-dark: #111008;
+  --color-brand-mid: #1e1c12;
+  --color-brand-warm: #2e2a1a;
+  --color-brand-gold: #C8A96E;
+  --color-brand-muted: #6b6450;
+}
+
+:root {
+  /* Nuxt UI primary color kita arahkan ke warna Gold */
+  --ui-primary: var(--color-brand-gold);
+  
+  /* Untuk Light Mode: Background terang (cream), teks gelap (dark) */
+  --ui-bg: var(--color-brand-warm);
+  --ui-text: var(--color-brand-cream);
+  
+  /* Variabel bantuan untuk komponen custom */
+  --bg-surface: #F5EFEB; /* Cream yang sedikit lebih terang/lembut */
+  --text-muted: var(--color-brand-muted);
+}
+
+/* Base style untuk halaman portofolio */
+@layer base {
+  body {
+      background: var(--ui-bg);
+      color: var(--ui-text);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+  }
+}
