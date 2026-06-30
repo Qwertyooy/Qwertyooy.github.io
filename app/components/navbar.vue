@@ -1,11 +1,22 @@
 <script setup   >
 
 const NavLink = [
-  {text : 'Home',href : '#hero'},
-  {text : 'About',href : '#about'},
-  {text : 'Work',href : '#work'},
-  {text : 'Contact',href : '#contac'},
+  {text : 'Home',href : 'hero'},
+  {text : 'About',href : 'about'},
+  {text : 'Work',href : 'work'},
+  {text : 'Contact',href : 'contac'},
 ]
+
+const scrollsection = (elementId) => {
+  const element = document.getElementById(elementId)
+  if(element) {
+    element.scrollIntoView({
+      behavior :'smooth',
+      block :'start'
+        })
+  }
+}
+
 
 </script>
 
@@ -14,12 +25,17 @@ const NavLink = [
     <div class="text-3xl font-bold">Portofolio.</div>
 
       <ul class="flex gap-10 text-sm font-medium">
-        <li v-for = "link in NavLink" :key=link.text class="mt-1.5" >
-          <a :href="link.href">{{link.text}}</a>
+        <li v-for = "link in NavLink" :key=link.text class="mt-1.5 hover:opacity-50 transition-opacity duration-300" >
+          <a @click.prevent="scrollsection(link.href)" href="#" class="cursor-pointer">
+          {{ link.text }}
+        </a>
         </li>
-        <UButton>helow</UButton>
       </ul>
-      <UButton icon="i-lucide-sun" variant="subtle"></UButton>
-  </nav>
+      <div class="gap-4 mx-5 items-center justify-center flex">
+        <UButton icon="i-lucide-sun" class="p-2" variant="subtle"></UButton>
+       <a @click.prevent="scrollsection('contac')" href="#" class="uppercase text-brand-gold font-light py-2 px-5 border border-brand-gold  hover:bg-brand-gold hover:text-brand-warm transition-colors duration-300">Hire me</a>
+      
+      </div>
+      </nav>
 
 </template>
