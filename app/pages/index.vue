@@ -1,6 +1,13 @@
 <script setup>
 import { ref } from 'vue'
 
+useHead({
+  bodyAttrs: {
+    class: 'portfolio-site'
+  }
+})
+
+
 const skills = [
   { num: '01', title: 'Visual Design', sub: 'Figma · Canva', level: 'Expert', progress: '85%' },
   { num: '02', title: 'Frontend Dev', sub: 'HTML · CSS · Tailwind · JS', level: 'Advanced', progress: '75%' },
@@ -28,7 +35,7 @@ const works = [
     title: 'KANVAS DIGITAL / WEDDING (development)',
     tag: 'Web Development · 2026',
     desc: 'Spesialis pembuatan website undangan pernikahan interaktif dengan fitur musik.',
-    href: './wedding/index.html',
+    href: '/wedding',
     img: '/img/wedding.avif',
     isLarge: false
   }
@@ -38,6 +45,7 @@ const works = [
 </script>
 
 <template>
+  <div class="portfolio-theme min-h-screen w-full overflow-x-hidden">
   <navbar/>
   <hero/>
     
@@ -199,5 +207,5 @@ const works = [
 </section>
 
 <footerku/> 
-
+</div>
 </template>
