@@ -2,8 +2,8 @@
 import { ref } from 'vue'
 
 const artists = ref([
-  { id: 1, name: 'Baskara Putra', img: '/img/2hover.avif', audio: '/img/hindia.mp3',song: 'rumah kerumah' },
-  { id: 2, name: 'Bernadya', img: '/img/3hover.avif', audio: '/img/bernadya.mp3', song:'kita buat menyenangkan' },
+  { id: 1, name: 'Baskara Putra', img: '/img/2hover.avif', audio: '/music/hindia.mp3',song: 'rumah kerumah' },
+  { id: 2, name: 'Bernadya', img: '/img/3hover.avif', audio: '/music/bernadya.mp3', song:'kita buat menyenangkan' },
 ])
 
 const currentAudio = ref(null)
