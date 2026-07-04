@@ -16,6 +16,21 @@ const MusikMu = ref([
 
 const isContentVisible = ref(false)
 
+const aboutMe = [
+  {col:1, title:'expertise', 
+  list:["Responsive Design",
+      "SEO Optimization",
+      "Fast Performance",
+      "Admin Dashboard"]},
+  
+  {col:2, title:'bussinies value', 
+  list:["More Leads",
+      "Professional Look",
+      "Mobile Friendly",
+      "Easy Management"]}
+  
+]
+
 // Track state for the audio player
 const currentAudio = ref(null)
 const currentPlayingId = ref(null)
@@ -35,7 +50,7 @@ const playmusic = (songfile, id) => {
   currentAudio.value.play()
   currentPlayingId.value = id
 
-  currentAudio.value.onended = () => {
+  currentAudio.value.onended = () => {  
     currentPlayingId.value = null
   }
 }
@@ -150,99 +165,37 @@ const toggleContent = () => {
   </UMain>
 <paket/>
 
-<!-- CONTAINER UTAMA SETELAH DAFTAR PAKET -->
-<!-- Efek gradasi dari abu-abu terang ke warna biru malam pekat (#0F172A ke #0B0F19) -->
-<div class="-full bg-gradient-to-b from-slate-50 via-slate-700 via-[#1a2333] to-[#111827] transition-all duration-1000 relative overflow-hidden">
-  <!-- ELEMEN DEKORASI LANGIT MALAM (Awan & Bintang Background) -->
-  <div class="absolute inset-0 pointer-events-none opacity-40">
-    <!-- Pendaran bintang samar di background menggunakan text hiasan -->
-    <div class="absolute top-20 left-10 text-white text-xs opacity-50 animate-pulse">✦</div>
-    <div class="absolute top-40 right-20 text-amber-200 text-sm opacity-30 animate-pulse" style="animation-delay: 1s">✦</div>
-    <div class="absolute bottom-1/2 left-1/4 text-white text-lg opacity-20 animate-pulse" style="animation-delay: 2s">✦</div>
-    <div class="absolute bottom-1/3 right-1/3 text-amber-100 text-xs opacity-40 animate-pulse" style="animation-delay: 1.5s">✦</div>
-  </div>
 
-  <!-- ================= SECTION: ABOUT (Transisi teks dari Gelap ke Terang) ================= -->
-  <div class="max-w-4xl mx-auto px-4 py-20 text-center relative z-10">
-    <!-- Tag diubah menjadi warna kontras karena background mulai menggelap -->
-    <span class="text-xs font-bold uppercase tracking-widest text-amber-400 bg-amber-950/60 px-3 py-1 rounded-full border border-amber-500/20">Who We Are</span>
-    
-    <!-- Judul H2 menggunakan text-white agar menyala di langit malam -->
-    <h2 class="text-3xl font-bold text-white mt-4 mb-6">Dibalik Layanan Web Berkualitas</h2>
-    
-    <p class="text-slate-300 max-w-2xl mx-auto mb-14 leading-relaxed text-sm md:text-base">
-      Kami adalah tim pengembang web dan desainer digital yang berfokus pada penciptaan platform modern, cepat, dan berdampak tinggi bagi bisnis Anda. Kami percaya bahwa website bukan sekadar kode, melainkan kanvas digital yang merepresentasikan kredibilitas bisnis Anda di dunia maya.
-    </p>
+  <section class="h-full w-full py-16 items-center flex flex-col justify-center ">
+  
 
-    <!-- Card Alur Kerja (Dibuat semi-transparan transparan agar menyatu dengan langit malam) -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-      <div class="p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:border-amber-400/40 transition-all duration-300">
-        <div class="text-lg font-bold text-amber-400 mb-2">01. Konsultasi</div>
-        <p class="text-slate-400 text-sm leading-relaxed">Mendiskusikan kebutuhan bisnis Anda dan merancang konsep desain yang paling sesuai.</p>
-      </div>
-      <div class="p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:border-cyan-400/40 transition-all duration-300">
-        <div class="text-lg font-bold text-cyan-400 mb-2">02. Pengerjaan</div>
-        <p class="text-slate-400 text-sm leading-relaxed">Proses coding dan desain menggunakan standar teknologi terbaru yang responsif dan cepat.</p>
-      </div>
-      <div class="p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:border-purple-400/40 transition-all duration-300">
-        <div class="text-lg font-bold text-purple-400 mb-2">03. Serah Terima</div>
-        <p class="text-slate-400 text-sm leading-relaxed">Website Anda resmi online, dioptimasi SEO, dan siap mendatangkan pelanggan baru.</p>
-      </div>
-    </div>
-  </div>
-<div class="z-10  h-full absolute w-full items-center justify-center">
-      <img src="/img/malam.avif" class="w-full h-full object-cover">
-    </div>  
-  <!-- ================= SECTION: CONTACT (Berada di bagian terdalam langit malam) ================= -->
-  <div class="max-w-4xl mx-auto px-4 pb-24 pt-4 relative z-10">
-    
-    <div class="bg-[#111827]/80 backdrop-blur-md text-white rounded-3xl p-8 md:p-12 border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col md:flex-row gap-8 items-center">
-      
-      <!-- Sisi Kiri: Ajakan Bertindak -->
-      <div class="w-full md:w-1/2 text-left">
-        <h3 class="text-2xl font-bold mb-3 text-amber-300">Siap Memulai Proyek Anda?</h3>
-        <p class="text-slate-300 text-sm leading-relaxed mb-6">
-          Pilih paket yang sesuai atau konsultasikan kebutuhan custom Anda secara gratis. Isi formulir di samping, dan tim kami akan segera menghubungi Anda dalam waktu 24 jam.
-        </p>
-        <div class="space-y-3 text-sm text-slate-400">
-          <p class="flex items-center gap-2">🟢 <span class="font-semibold text-white">Respons Cepat:</span> Pukul 08.00 - 21.00 WIB</p>
-          <p class="flex items-center gap-2">💬 <span class="font-semibold text-white">WhatsApp:</span> +62 8xx-xxxx-xxxx</p>
+    <span class="text-xs font-extrabold tracking-widest text-amber-600 uppercase bg-amber-500/10 px-4 py-1.5 rounded-full">about me</span>
+    <h2 class="text-4xl sm:text-5xl font-black text-sky-950 mt-4 mb-4 tracking-tight">Di Balik Website Mu</h2>
+    <p class="text-slate-600 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed mb-6 text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto deserunt, laboriosam at autem, in sit libero sint doloremque excepturi asperiores eveniet ad ipsam reiciendis iste corrupti, alias obcaecati optio laudantium!</p>
+        <div class="mmax-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8  ">
+          <div 
+          v-for="about in aboutMe" :key="about.col"
+          class="bg-white/60 backdrop-blur-xl border text-center border-white/70 rounded-3xl p-8 shadow-xl hover:-translate-y-2 transition-all duration-300">
+            <p class="text-2xl font-black mt-4 mb-3 tracking-wide uppercase">{{about.title}}</p>
+          <ul class="space-y-4">
+            <li 
+            v-for="(item, index) in about.list" :key="index"
+            class="flex items-center gap-4 text-center"
+            >
+            <div
+          class="w-10 h-10 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 flex items-center justify-center text-white font-bold"
+        >
+          ✓
         </div>
-      </div>
-
-      <!-- Sisi Kanan: Formulir Input -->
-      <div class="w-full md:w-1/2 bg-white/5 p-6 rounded-2xl border border-white/5">
-        <form class="space-y-4 text-left">
-          <div>
-            <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">Nama Lengkap</label>
-            <input type="text" placeholder="Masukkan nama Anda" class="w-full px-4 py-2.5 bg-slate-900/60 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm transition-all">
-          </div>
-          
-          <div>
-            <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">Pilihan Paket</label>
-            <select class="w-full px-4 py-2.5 bg-[#111827] border border-white/10 rounded-lg text-white focus:outline-none focus:border-amber-400 text-sm transition-all">
-              <option class="bg-[#111827]">Pilih Layanan...</option>
-              <option class="bg-[#111827]">Essential Plan</option>
-              <option class="bg-[#111827]">Premium Plan</option>
-              <option class="bg-[#111827]">Custom Request</option>
-            </select>
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">Catatan Tambahan</label>
-            <textarea rows="3" placeholder="Ceritakan singkat tentang bisnis atau web yang Anda inginkan..." class="w-full px-4 py-2.5 bg-slate-900/60 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm transition-all resize-none"></textarea>
-          </div>
-
-          <button type="submit" class="w-full py-3 bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold text-sm rounded-lg shadow-lg shadow-amber-500/10 transition-all transform active:scale-95">
-            Kirim Penawaran Sekarang
-          </button>
-        </form>
-      </div>
-
+              <p class="text-slate-700 font-medium">{{item}}</p>
+            </li>
+          </ul>
+        </div>
+    
     </div>
-  </div>
+  </section>
 
-</div>
+  <contact-wed/>
 </template>
 
 <style scoped>
